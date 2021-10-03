@@ -6,7 +6,6 @@ type Contact struct {
 	LastName  string
 	Phone     string
 	Email     string
-	Position  int
 }
 
 type ContactList struct {
@@ -17,8 +16,6 @@ type ContactList struct {
 // Methods: create, update, get, getAll and delete
 
 func (cl *ContactList) Create(con Contact) Contact {
-	con.Position = cl.N
-	cl.N++
 	cl.Contacts = append(cl.Contacts, con)
 	return con
 }
