@@ -10,7 +10,6 @@ type Contact struct {
 
 type ContactList struct {
 	Contacts []Contact
-	N        int
 }
 
 // Methods: create, update, get, getAll and delete
@@ -24,7 +23,7 @@ func (cl *ContactList) Update(con Contact) Contact {
 	for i, v := range cl.Contacts {
 		if v.Id == con.Id {
 			cl.Contacts[i] = con
-			return con
+			return cl.Contacts[i]
 		}
 	}
 	return Contact{}

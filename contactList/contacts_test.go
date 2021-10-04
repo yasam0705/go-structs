@@ -1,7 +1,6 @@
 package contacts
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -29,6 +28,13 @@ var (
 			Email:     "brian.robinson@example.com",
 		},
 	}
+	updContact = Contact{
+		Id:        12,
+		FirstName: "Lee",
+		LastName:  "Wright",
+		Phone:     "(215)-511-9272",
+		Email:     "lee.wright@example.com",
+	}
 	contList = ContactList{}
 )
 
@@ -47,6 +53,11 @@ func TestCreate(t *testing.T) {
 
 func TestUpdate(t *testing.T) {
 	TestCreate(t)
+
+	contList.Update(updContact)
+	if contList.Get(updContact.Id) != updContact {
+		t.Error("Failed Update method")
+	}
 }
 
 func TestGet(t *testing.T) {
@@ -54,33 +65,27 @@ func TestGet(t *testing.T) {
 
 	getContact := contList.Get(11)
 	if getContact.Id != 11 {
-		fmt.Println(contList)
 		t.Error("Failed get method")
 	}
-
-	t.Cleanup(func() {
-		contList = ContactList{}
-	})
 }
 
 func TestGetAll(t *testing.T) {
-	// allContacts := contList.GetAll()
-	// if allContacts == testContacts {
-	// 	t.Error("Failed GetAll method")
-	// }
+	TestCreate(t)
+	allContacts := contList.GetAll()
+
+	for i := 0; i < len(testContacts); i++ {
+		if allContacts[i] != testContacts[i] {
+			t.Error("Failed GetAll method")
+		}
+	}
 }
 
 func TestDelete(t *testing.T) {
 	TestCreate(t)
 	contList.Delete(11)
-	fmt.Println(contList.Contacts)
 	for _, v := range contList.Contacts {
 		if v.Id == 11 {
 			t.Error("Failed Delete method")
 		}
 	}
-
-	t.Cleanup(func() {
-		contList = ContactList{}
-	})
 }
