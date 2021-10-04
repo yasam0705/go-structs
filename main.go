@@ -3,7 +3,6 @@ package main
 import (
 	contacts "contact_list/contactList"
 	tasklist "contact_list/taskList"
-	"fmt"
 )
 
 func main() {
@@ -26,9 +25,9 @@ func main() {
 
 	// fmt.Println(cont.GetAll())
 
-	cont.Delete(12)
+	// cont.Delete(12)
 
-	fmt.Println(cont.Get(12))
+	// fmt.Println(cont.Get(12))
 
 	taskl := new(tasklist.TaskList)
 
