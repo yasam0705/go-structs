@@ -1,6 +1,9 @@
 package contacts
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 var (
 	testContacts = []Contact{
@@ -30,13 +33,15 @@ var (
 )
 
 func TestCreate(t *testing.T) {
-	t.Run("create contact", func(t *testing.T) {
-		for _, v := range testContacts {
-			temp_contact := contList.Create(v)
-			if temp_contact != v {
-				t.Errorf("Failed create object: %v", v)
-			}
+	for _, v := range testContacts {
+		temp_contact := contList.Create(v)
+		if temp_contact != v {
+			t.Error("Failed create method")
 		}
+	}
+
+	t.Cleanup(func() {
+		contList = ContactList{}
 	})
 }
 
@@ -46,16 +51,36 @@ func TestUpdate(t *testing.T) {
 
 func TestGet(t *testing.T) {
 	TestCreate(t)
+
 	getContact := contList.Get(11)
 	if getContact.Id != 11 {
+		fmt.Println(contList)
 		t.Error("Failed get method")
 	}
+
+	t.Cleanup(func() {
+		contList = ContactList{}
+	})
 }
 
 func TestGetAll(t *testing.T) {
-	TestCreate(t)
-	allContacts := contList.GetAll()
+	// allContacts := contList.GetAll()
 	// if allContacts == testContacts {
 	// 	t.Error("Failed GetAll method")
 	// }
+}
+
+func TestDelete(t *testing.T) {
+	TestCreate(t)
+	contList.Delete(11)
+	fmt.Println(contList.Contacts)
+	for _, v := range contList.Contacts {
+		if v.Id == 11 {
+			t.Error("Failed Delete method")
+		}
+	}
+
+	t.Cleanup(func() {
+		contList = ContactList{}
+	})
 }

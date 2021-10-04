@@ -26,9 +26,9 @@ func main() {
 
 	// fmt.Println(cont.GetAll())
 
-	// cont.Delete(12)
+	cont.Delete(12)
 
-	// fmt.Println(cont.Get(10))
+	fmt.Println(cont.Get(12))
 
 	taskl := new(tasklist.TaskList)
 
@@ -52,6 +52,6 @@ func main() {
 		DueDate:   "06.10.2021",
 	})
 
-	taskl.Delete(20)
-	fmt.Println(taskl.GetAll())
+	// taskl.Delete(20)
+	// fmt.Println(taskl.GetAll())
 }
